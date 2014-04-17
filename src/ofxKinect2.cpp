@@ -308,6 +308,7 @@ void Stream::threadedFunction()
 				setPixels(frame);
 				kinect2_timestamp = frame.timestamp;
 				texture_needs_update = true;
+				frame.release();
 			}
 			unlock();
 		}
@@ -459,6 +460,8 @@ bool ColorStream::readFrame()
 
 	if (SUCCEEDED(hr))
 	{
+		frame.release();
+
 		IFrameDescription* p_frame_description = NULL;
 		ColorImageFormat image_format = ColorImageFormat_None;
 
@@ -520,10 +523,11 @@ bool ColorStream::readFrame()
 		{
 			readed = true;
 		}
+
+		frame.pFrameHandle = p_frame;
+
 		safe_release(p_frame_description);
 	}
-
-	safe_release(p_frame);
 
 	return readed;
 }
@@ -669,6 +673,8 @@ bool DepthStream::readFrame()
 
 	if (SUCCEEDED(hr))
 	{
+		frame.release();
+
 		IFrameDescription* p_frame_description = NULL;
 
 		hr = p_frame->get_RelativeTime((INT64*)&frame.timestamp);
@@ -727,10 +733,11 @@ bool DepthStream::readFrame()
 		{
 			readed = true;
 		}
+
+		frame.pFrameHandle = p_frame;
+
 		safe_release(p_frame_description);
 	}
-
-	safe_release(p_frame);
 
 	return readed;
 }
@@ -854,6 +861,8 @@ bool IrStream::readFrame()
 
 	if (SUCCEEDED(hr))
 	{
+		frame.release();
+
 		IFrameDescription* p_frame_description = NULL;
 
 		hr = p_frame->get_RelativeTime((INT64*)&frame.timestamp);
@@ -897,10 +906,11 @@ bool IrStream::readFrame()
 		{
 			readed = true;
 		}
+
+		frame.pFrameHandle = p_frame;
+
 		safe_release(p_frame_description);
 	}
-
-	safe_release(p_frame);
 
 	return readed;
 }

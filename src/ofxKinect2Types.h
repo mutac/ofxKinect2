@@ -38,8 +38,15 @@ namespace ofxKinect2 {
 		float fps;
 	} Mode;
 
-	typedef struct
+	class Frame
 	{
+	public:
+		Frame() 
+			: data(NULL),
+			pFrameHandle(NULL)
+		{
+		}
+
 		int data_size;
 		void* data;
 
@@ -56,7 +63,19 @@ namespace ofxKinect2 {
 
 		Mode mode;
 		int stride;
-	} Frame;
+
+		IUnknown* pFrameHandle;
+
+		void release()
+		{
+			if (pFrameHandle) 
+			{
+				pFrameHandle->Release();
+				pFrameHandle = NULL;
+				data = NULL;
+			}
+		}
+	};
 
 	typedef struct
 	{

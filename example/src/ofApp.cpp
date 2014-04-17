@@ -8,16 +8,19 @@ void ofApp::setup(){
 	if(depth_.setup(*device_))
 	{
 		depth_.open();
+		depth_.setFps(30);
 	}
 
 	if (color_.setup(*device_))
 	{
 		color_.open();
+		depth_.setFps(30);
 	}
 
 	if (ir_.setup(*device_))
 	{
 		ir_.open();
+		depth_.setFps(30);
 	}
 }
 

@@ -1,0 +1,6 @@
+example/bin/*
+example/x64/*
+*.log
+*.suo
+*.sdf
+*.opensdf
