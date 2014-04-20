@@ -27,6 +27,27 @@ public:
 		pix[0].allocate(w, h, channels);
 		pix[1].allocate(w, h, channels);
 	}
+
+    bool isAllocated()
+    {
+        return pix[0].isAllocated() && pix[1].isAllocated();
+    }
+
+    int getWidth()
+    {
+        return pix[0].getWidth();
+    }
+
+    int getHeight()
+    {
+        return pix[0].getHeight();
+    }
+
+    void clear()
+    {
+        pix[0].clear();
+        pix[1].clear();
+    }
 	
 	PixelType& getFrontBuffer() { return pix[front_buffer_index]; }
 	const PixelType& getFrontBuffer() const { return pix[front_buffer_index]; }
